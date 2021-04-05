@@ -1,6 +1,8 @@
 <resources>
-    <string name="app_name">umte-app</string>
+    <string name="app_name">UMTE App</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_carts">Košíky</string>
+    <string name="title_shop">Nakupovat</string>
+    <string name="title_history">Historie nákupů</string>
+    <string name="title_map">Mapa obchodů</string>
 </resources>
