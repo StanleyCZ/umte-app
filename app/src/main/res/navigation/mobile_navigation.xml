@@ -12,12 +12,6 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_shopping"
-        android:name="com.example.umte_app.ui.shopping.ShoppingFragment"
-        android:label="@string/title_shop"
-        tools:layout="@layout/fragment_home" />
-
-    <fragment
         android:id="@+id/navigation_history"
         android:name="com.example.umte_app.ui.history.HistoryFragment"
         android:label="@string/title_history"
