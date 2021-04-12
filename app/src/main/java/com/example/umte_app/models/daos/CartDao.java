@@ -1,5 +1,6 @@
 package com.example.umte_app.models.daos;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -21,10 +22,13 @@ public interface CartDao {
     @Delete
     void delete(Cart cart);
 
-    @Query("SELECT * FROM cart")
-    List<Cart> getAll();
+    @Query("SELECT * FROM cart WHERE isFinished = 0")
+    LiveData<List<Cart>> getAllPrepared();
 
     @Query("SELECT * FROM cart WHERE isFinished = 1")
-    List<Cart> getAllFinished();
+    LiveData<List<Cart>> getAllFinished();
+
+    @Query("DELETE FROM cart WHERE isFinished = 1")
+    void deleteCartsInHistory();
 
 }

@@ -18,4 +18,6 @@ public class Cart {
     public Date creationDate;
 
     public boolean isFinished;
+
+    public Cart(){}
 }

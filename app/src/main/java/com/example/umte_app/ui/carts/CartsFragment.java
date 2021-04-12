@@ -5,10 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.umte_app.R;
 import com.example.umte_app.models.AppDatabase;
@@ -17,6 +20,8 @@ import com.example.umte_app.models.entities.Cart;
 import java.util.List;
 
 public class CartsFragment extends Fragment {
+
+
 
     @Nullable
     @Override
@@ -27,13 +32,6 @@ public class CartsFragment extends Fragment {
 
         final TextView tv = (TextView) root.findViewById(R.id.cart_textView);
         tv.setText("Hovnooo");
-
-        Thread th = new Thread(() -> {
-            List<Cart> carts = AppDatabase.getInstance(getContext()).cartDao().getAll();
-
-        });
-        th.start();
-
 
         return root;
 

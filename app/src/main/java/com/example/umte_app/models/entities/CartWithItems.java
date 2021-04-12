@@ -12,4 +12,9 @@ public class CartWithItems {
     @Relation(parentColumn = "id",entityColumn = "cartId")
     public List<CartItem> items;
 
+    public CartWithItems(Cart cart, List<CartItem> items){
+        this.cart = cart;
+        this.items = items;
+    }
+
 }
