@@ -13,5 +13,8 @@
         <item>Penny</item>
         <item>Tesco</item>
     </string-array>
+    <string name="title_activity_carts">MainActivity</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 
 </resources>

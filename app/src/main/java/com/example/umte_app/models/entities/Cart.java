@@ -19,5 +19,8 @@ public class Cart {
 
     public boolean isFinished;
 
-    public Cart(){}
+    public Cart(String name, String storeName){
+        this.name = name;
+        this.storeName = storeName;
+    }
 }
