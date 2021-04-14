@@ -27,7 +27,7 @@ import java.util.List;
 public class CartListActivity extends AppCompatActivity {
 
     private static final int CREATE_CART_REQUEST = 1;
-    private CartsViewModel cartsViewModel;
+    private CartListViewModel cartListViewModel;
 
 
     @Override
@@ -61,7 +61,7 @@ public class CartListActivity extends AppCompatActivity {
         });
 
         //viewmodel
-        cartsViewModel = new ViewModelProvider(this).get(CartsViewModel.class);
+        cartListViewModel = new ViewModelProvider(this).get(CartListViewModel.class);
 
         //button na vytvoreni noveho kosiku
         FloatingActionButton fab = findViewById(R.id.btn_addNewCart);
@@ -80,7 +80,7 @@ public class CartListActivity extends AppCompatActivity {
         CartAdapter adapter = new CartAdapter();
         recyclerView.setAdapter(adapter);
 
-        cartsViewModel.getCarts().observe(this, new Observer<List<Cart>>() {
+        cartListViewModel.getCarts().observe(this, new Observer<List<Cart>>() {
             @Override
             public void onChanged(List<Cart> carts) {
                 adapter.setCarts(carts);
@@ -93,13 +93,12 @@ public class CartListActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == CREATE_CART_REQUEST && requestCode == RESULT_OK){
+        if(requestCode == CREATE_CART_REQUEST && resultCode == RESULT_OK){
 
-            //TODO uložit data získaná z aktivity (nový košík)
-            Toast.makeText(this,"Ulozeno",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Košík byl uložen",Toast.LENGTH_SHORT).show();
         }
         else{
-            Toast.makeText(this,"Neuloženo",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Košík nebyl uložen",Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -3,9 +3,10 @@ package com.example.umte_app.models.entities;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class CartWithItems {
+public class CartWithItems implements Serializable {
 
     @Embedded public Cart cart;
 

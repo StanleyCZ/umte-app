@@ -6,10 +6,12 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 import static androidx.room.ForeignKey.CASCADE;
 
 @Entity
-public class CartItem {
+public class CartItem implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     public long id;

@@ -4,10 +4,11 @@ package com.example.umte_app.models.entities;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-public class Cart {
+public class Cart implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     public int id;

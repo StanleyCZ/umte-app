@@ -13,12 +13,12 @@ import com.example.umte_app.models.repos.CartRepository;
 
 import java.util.List;
 
-public class CartsViewModel extends AndroidViewModel {
+public class CartListViewModel extends AndroidViewModel {
 
     private CartRepository repository;
     private LiveData<List<Cart>> carts;
 
-    public CartsViewModel(@NonNull Application application){
+    public CartListViewModel(@NonNull Application application){
         super(application);
         repository = new CartRepository(application);
         carts = repository.getAllEditableCarts();
