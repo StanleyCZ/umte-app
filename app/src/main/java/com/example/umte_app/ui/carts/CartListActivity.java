@@ -3,8 +3,8 @@ package com.example.umte_app.ui.carts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,15 +18,14 @@ import com.example.umte_app.R;
 import com.example.umte_app.models.entities.Cart;
 import com.example.umte_app.ui.history.HistoryActivity;
 import com.example.umte_app.ui.maps.MapsActivity;
-import com.example.umte_app.ui.newCart.NewCartActivity;
+import com.example.umte_app.ui.newCart.EditCartActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.util.List;
 
 public class CartListActivity extends AppCompatActivity {
 
     private static final int CREATE_CART_REQUEST = 1;
+    private static final int EDIT_CART_REQUEST = 2;
     private CartListViewModel cartListViewModel;
 
 
@@ -68,37 +67,61 @@ public class CartListActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CartListActivity.this, NewCartActivity.class);
+                Intent intent = new Intent(CartListActivity.this, EditCartActivity.class);
                 startActivityForResult(intent, CREATE_CART_REQUEST);
             }
         });
 
+        //recycler view se seznamem košíků
         RecyclerView recyclerView = findViewById(R.id.basketList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
-
         CartAdapter adapter = new CartAdapter();
         recyclerView.setAdapter(adapter);
 
-        cartListViewModel.getCarts().observe(this, new Observer<List<Cart>>() {
+        cartListViewModel.getCarts().observe(this, carts -> adapter.setCarts(carts));
+
+        //nastaveni swipování položek
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
-            public void onChanged(List<Cart> carts) {
-                adapter.setCarts(carts);
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                cartListViewModel.delete(adapter.getCartAt(viewHolder.getAdapterPosition()));
+                Toast.makeText(CartListActivity.this,"Košík byl smazán", Toast.LENGTH_SHORT).show();
+            }
+        }).attachToRecyclerView(recyclerView);
+
+        //nastaveni udalosti kliknuti na kosik
+        adapter.setOnItemClickListener(new CartAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Cart cart) {
+                Intent intent = new Intent(CartListActivity.this, EditCartActivity.class);
+                intent.putExtra("cart-to-edit",cart);
+                startActivityForResult(intent, EDIT_CART_REQUEST);
             }
         });
 
-
     }
+
+    //nastane kdyz se vracim z EditCartActivity
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == CREATE_CART_REQUEST && resultCode == RESULT_OK){
-
-            Toast.makeText(this,"Košík byl uložen",Toast.LENGTH_SHORT).show();
+        if(resultCode == RESULT_OK){
+            switch (requestCode){
+                case CREATE_CART_REQUEST:
+                    Toast.makeText(this,"Košík byl uložen",Toast.LENGTH_SHORT).show(); break;
+                case EDIT_CART_REQUEST:
+                    Toast.makeText(this,"Košík byl upraven",Toast.LENGTH_SHORT).show(); break;
+            }
         }
         else{
-            Toast.makeText(this,"Košík nebyl uložen",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Nebyly provedeny žádné změny",Toast.LENGTH_SHORT).show();
         }
     }
 

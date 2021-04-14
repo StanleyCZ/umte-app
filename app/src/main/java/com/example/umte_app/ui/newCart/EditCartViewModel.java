@@ -8,15 +8,16 @@ import androidx.lifecycle.AndroidViewModel;
 import com.example.umte_app.models.entities.Cart;
 import com.example.umte_app.models.repos.CartRepository;
 
-public class NewCartViewModel extends AndroidViewModel {
+public class EditCartViewModel extends AndroidViewModel {
 
     private CartRepository repository;
 
-    public NewCartViewModel(@NonNull Application application) {
+    public EditCartViewModel(@NonNull Application application) {
         super(application);
         repository = new CartRepository(application);
     }
     public void insert(Cart cart){
         repository.insert(cart);
     }
+    public void update(Cart cart){repository.update(cart);}
 }

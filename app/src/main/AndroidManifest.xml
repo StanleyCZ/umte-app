@@ -17,7 +17,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.newCart.NewCartActivity" android:parentActivityName=".ui.carts.CartListActivity" />
+        <activity android:name=".ui.newCart.EditCartActivity" android:parentActivityName=".ui.carts.CartListActivity" />
     </application>
 
 </manifest>

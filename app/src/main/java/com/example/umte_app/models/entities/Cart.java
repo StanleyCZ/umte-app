@@ -24,4 +24,5 @@ public class Cart implements Serializable {
         this.name = name;
         this.storeName = storeName;
     }
+    public Cart(){}
 }
