@@ -1,4 +1,4 @@
-package com.example.umte_app.ui.newCart;
+package com.example.umte_app.ui.editCart;
 
 import android.app.Application;
 
@@ -17,7 +17,7 @@ public class EditCartViewModel extends AndroidViewModel {
         repository = new CartRepository(application);
     }
     public void insert(Cart cart){
-        repository.insert(cart);
+        long newCartId = repository.insert(cart);
     }
     public void update(Cart cart){repository.update(cart);}
 }

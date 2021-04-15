@@ -1,4 +1,10 @@
-package com.example.umte_app.ui.carts;
+package com.example.umte_app.ui.cartList;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -8,17 +14,11 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
-
 import com.example.umte_app.R;
 import com.example.umte_app.models.entities.Cart;
+import com.example.umte_app.ui.editCart.EditCartActivity;
 import com.example.umte_app.ui.history.HistoryActivity;
 import com.example.umte_app.ui.maps.MapsActivity;
-import com.example.umte_app.ui.newCart.EditCartActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -90,7 +90,7 @@ public class CartListActivity extends AppCompatActivity {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                cartListViewModel.delete(adapter.getCartAt(viewHolder.getAdapterPosition()));
+                cartListViewModel.delete(adapter.getCartAt(viewHolder.getAdapterPosition()).cart);
                 Toast.makeText(CartListActivity.this,"Košík byl smazán", Toast.LENGTH_SHORT).show();
             }
         }).attachToRecyclerView(recyclerView);
@@ -105,7 +105,26 @@ public class CartListActivity extends AppCompatActivity {
             }
         });
 
+        //nastaveni udalosti po dlouhem kliknuti na kosik
+        adapter.setOnItemLongClickListener(new CartAdapter.OnItemLongClickListener() {
+            @Override
+            public void onItemLongClick(Cart cart) {
+                Toast.makeText(CartListActivity.this,"LONG CLICK",Toast.LENGTH_SHORT).show();
+                openDialog(cart);
+            }
+        });
+
     }
+
+    //dialog pro vyber zda chce upravit kosik ci nakupovat
+    public void openDialog(Cart cart){
+        CartClikDialog dialog = new CartClikDialog(cart);
+        dialog.show(getSupportFragmentManager(),"cart dialog");
+    }
+
+
+
+
 
     //nastane kdyz se vracim z EditCartActivity
     @Override

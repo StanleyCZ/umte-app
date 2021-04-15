@@ -1,4 +1,4 @@
-package com.example.umte_app.ui.newCart;
+package com.example.umte_app.ui.editCart;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,7 +27,6 @@ import com.example.umte_app.models.entities.Cart;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 public class EditCartActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 

@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">UMTE App</string>
-    <string name="title_home">Home</string>
     <string name="title_carts">Košíky</string>
     <string name="title_shop">Nakupovat</string>
     <string name="title_history">Historie nákupů</string>
@@ -13,8 +12,11 @@
         <item>Penny</item>
         <item>Tesco</item>
     </string-array>
-    <string name="title_activity_carts">MainActivity</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+
+    <string-array name="basket_dialog_values">
+        <item>Upravit košík</item>
+        <item>Nakupovat</item>
+    </string-array>
+
 
 </resources>

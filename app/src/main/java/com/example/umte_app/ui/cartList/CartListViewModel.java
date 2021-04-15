@@ -1,4 +1,4 @@
-package com.example.umte_app.ui.carts;
+package com.example.umte_app.ui.cartList;
 
 
 import android.app.Application;
@@ -6,9 +6,9 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.example.umte_app.models.entities.Cart;
+import com.example.umte_app.models.entities.CartWithItems;
 import com.example.umte_app.models.repos.CartRepository;
 
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.List;
 public class CartListViewModel extends AndroidViewModel {
 
     private CartRepository repository;
-    private LiveData<List<Cart>> carts;
+    private LiveData<List<CartWithItems>> carts;
 
     public CartListViewModel(@NonNull Application application){
         super(application);
@@ -33,7 +33,7 @@ public class CartListViewModel extends AndroidViewModel {
     public void delete(Cart cart){
         repository.delete(cart);
     }
-    public LiveData<List<Cart>> getCarts(){
+    public LiveData<List<CartWithItems>> getCarts(){
         return carts;
     }
 

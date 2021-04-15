@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.carts.CartListActivity">
+    tools:context=".ui.cartList.CartListActivity">
 
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -26,6 +26,7 @@
             android:layout_gravity="bottom|end"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="64dp"
+            android:backgroundTint="@color/teal_700"
             />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
@@ -35,7 +36,7 @@
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:itemBackground="@color/purple_700"
+        app:itemBackground="@color/teal_700"
         app:itemTextColor="@drawable/selector"
         app:itemIconTint="@drawable/selector"
         app:menu="@menu/menu_navigation"

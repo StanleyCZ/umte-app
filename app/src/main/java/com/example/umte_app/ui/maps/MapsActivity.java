@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.umte_app.R;
-import com.example.umte_app.ui.carts.CartListActivity;
+import com.example.umte_app.ui.cartList.CartListActivity;
 import com.example.umte_app.ui.history.HistoryActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 

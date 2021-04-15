@@ -5,9 +5,11 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Transaction;
 import androidx.room.Update;
 
 import com.example.umte_app.models.entities.Cart;
+import com.example.umte_app.models.entities.CartWithItems;
 
 import java.util.List;
 
@@ -22,11 +24,12 @@ public interface CartDao {
     @Delete
     void delete(Cart cart);
 
+    @Transaction
     @Query("SELECT * FROM cart WHERE isFinished = 0")
-    LiveData<List<Cart>> getAllPrepared();
+    LiveData<List<CartWithItems>> getAllReadyToShop();
 
     @Query("SELECT * FROM cart WHERE isFinished = 1")
-    LiveData<List<Cart>> getAllFinished();
+    LiveData<List<CartWithItems>> getAllFinished();
 
     @Query("DELETE FROM cart WHERE isFinished = 1")
     void deleteCartsInHistory();

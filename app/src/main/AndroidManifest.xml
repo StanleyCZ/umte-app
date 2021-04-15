@@ -9,15 +9,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Umteapp">
+        <activity android:name=".ui.detailCart.DetailActivity"></activity>
         <activity android:name=".ui.maps.MapsActivity" />
         <activity android:name=".ui.history.HistoryActivity" />
-        <activity android:name=".ui.carts.CartListActivity" android:launchMode="singleTop">
+        <activity
+            android:name=".ui.cartList.CartListActivity"
+            android:launchMode="singleTop">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.newCart.EditCartActivity" android:parentActivityName=".ui.carts.CartListActivity" />
+        <activity
+            android:name=".ui.editCart.EditCartActivity"
+            android:parentActivityName=".ui.cartList.CartListActivity" />
     </application>
 
 </manifest>
