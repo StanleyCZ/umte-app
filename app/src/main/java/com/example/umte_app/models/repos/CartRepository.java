@@ -16,6 +16,7 @@ public class CartRepository {
 
     private CartDao cartDao;
     private LiveData<List<CartWithItems>> editableCarts;
+    private LiveData<CartWithItems> cart;
 
     public CartRepository(Application application){
         AppDatabase db = AppDatabase.getInstance(application);
@@ -23,6 +24,11 @@ public class CartRepository {
         editableCarts = cartDao.getAllReadyToShop();
     }
 
+    public LiveData<CartWithItems> getById(int basketId){
+        GetCartByIdAsyncTask task = new GetCartByIdAsyncTask(cartDao);
+        task.execute(basketId).execute(basketId);
+        return task.getThisFukingCart();
+    }
     public long insert(Cart cart){
         new InsertCartAsyncTask(cartDao).execute(cart);
         return cart.id;
@@ -72,6 +78,29 @@ public class CartRepository {
         protected Void doInBackground(Void... voids) {
             cartDao.deleteCartsInHistory();
             return null;
+        }
+    }
+
+    private static class GetCartByIdAsyncTask extends AsyncTask<Integer,Void,LiveData<CartWithItems>>{
+        private CartDao cartDao;
+        private LiveData<CartWithItems> cwitems;
+
+        public GetCartByIdAsyncTask(CartDao dao){
+            this.cartDao = dao;
+        }
+        public LiveData<CartWithItems> getThisFukingCart(){
+            return cwitems;
+        };
+
+        @Override
+        protected LiveData<CartWithItems> doInBackground(Integer... integers) {
+            return cartDao.getById(integers[0]);
+        }
+
+        @Override
+        protected void onPostExecute(LiveData<CartWithItems> cartWithItemsLiveData) {
+            super.onPostExecute(cartWithItemsLiveData);
+            cwitems = cartWithItemsLiveData;
         }
     }
 

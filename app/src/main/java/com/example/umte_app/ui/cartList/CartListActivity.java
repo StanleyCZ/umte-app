@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.umte_app.R;
 import com.example.umte_app.models.entities.Cart;
+import com.example.umte_app.ui.detailCart.DetailActivity;
 import com.example.umte_app.ui.editCart.EditCartActivity;
 import com.example.umte_app.ui.history.HistoryActivity;
 import com.example.umte_app.ui.maps.MapsActivity;
@@ -26,6 +27,7 @@ public class CartListActivity extends AppCompatActivity {
 
     private static final int CREATE_CART_REQUEST = 1;
     private static final int EDIT_CART_REQUEST = 2;
+    private static final int DETAIL_CART_REQUEST = 3;
     private CartListViewModel cartListViewModel;
 
 
@@ -99,9 +101,9 @@ public class CartListActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new CartAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Cart cart) {
-                Intent intent = new Intent(CartListActivity.this, EditCartActivity.class);
-                intent.putExtra("cart-to-edit",cart);
-                startActivityForResult(intent, EDIT_CART_REQUEST);
+                Intent intent = new Intent(CartListActivity.this, DetailActivity.class);
+                intent.putExtra("cart-detail",cart);
+                startActivityForResult(intent, DETAIL_CART_REQUEST);
             }
         });
 

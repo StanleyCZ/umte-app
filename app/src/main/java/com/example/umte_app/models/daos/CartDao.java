@@ -34,4 +34,6 @@ public interface CartDao {
     @Query("DELETE FROM cart WHERE isFinished = 1")
     void deleteCartsInHistory();
 
+    @Query("SELECT * FROM cart WHERE id = :basketId")
+    LiveData<CartWithItems> getById(int basketId);
 }

@@ -22,6 +22,7 @@ public class CartItem implements Serializable {
     public int count;
     public float price;
     public String imagePath;
+    public boolean isPurchased;
 
     public CartItem(String name, int count){
         this.name = name;
