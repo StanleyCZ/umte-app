@@ -114,14 +114,14 @@ public class EditCartActivity extends AppCompatActivity implements AdapterView.O
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.add_cart_menu,menu);
+        menuInflater.inflate(R.menu.save_entity_menu,menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-            case R.id.save_cart:
+            case R.id.save_entity:
                 saveCart(); return true;
             default: return super.onOptionsItemSelected(item);
         }

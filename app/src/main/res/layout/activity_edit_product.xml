@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.editProduct.EditProductActivity">
+
+     <TextView
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:text="Název produktu:"
+         android:textColor="@color/teal_700"
+         android:id="@+id/productNameTextView"
+         android:paddingTop="16dp"
+         android:layout_marginHorizontal="8dp"/>
+
+     <EditText
+         android:id="@+id/productNameEdit"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:inputType="text"
+         android:hint="Zadejte název"
+         app:layout_constraintTop_toBottomOf="@id/productNameTextView"
+         android:layout_marginHorizontal="8dp"
+         />
+
+     <TextView
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:text="Počet kusů:"
+         android:id="@+id/productCountTextView"
+         app:layout_constraintTop_toBottomOf="@id/productNameEdit"
+         android:paddingTop="10dp"
+         android:layout_marginHorizontal="8dp"
+         android:textColor="@color/teal_700"/>
+
+     <EditText
+         android:id="@+id/productCountEdit"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:inputType="number"
+         android:hint="Počet ks"
+         android:layout_marginHorizontal="8dp"
+         app:layout_constraintTop_toBottomOf="@id/productCountTextView"/>
+
+     <TextView
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:id="@+id/productPriceTextView"
+         android:text="Cena za kus:"
+         android:textColor="@color/teal_700"
+         android:layout_marginHorizontal="8dp"
+         android:paddingTop="10dp"
+         app:layout_constraintTop_toBottomOf="@id/productCountEdit" />
+
+     <EditText
+         android:id="@+id/productPriceEdit"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:inputType="numberDecimal"
+         android:hint="Cena kusu"
+         android:layout_marginHorizontal="8dp"
+         app:layout_constraintTop_toBottomOf="@id/productPriceTextView"/>
+
+    <Button
+        android:id="@+id/buttonOpenCamera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/productPriceEdit"
+        android:text="Pořídit foto produktu"/>
+
+     
+
+</androidx.constraintlayout.widget.ConstraintLayout>

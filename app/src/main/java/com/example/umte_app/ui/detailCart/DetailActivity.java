@@ -1,5 +1,6 @@
 package com.example.umte_app.ui.detailCart;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -7,13 +8,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.umte_app.R;
 import com.example.umte_app.models.entities.Cart;
 import com.example.umte_app.ui.cartList.CartAdapter;
+import com.example.umte_app.ui.cartList.CartListActivity;
+import com.example.umte_app.ui.editCart.EditCartActivity;
+import com.example.umte_app.ui.editProduct.EditProductActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class DetailActivity extends AppCompatActivity {
+
+    private static final int CREATE_PRODUCT_REQUEST = 1;
+    private static final int EDIT_PRODUCT_REQUEST = 2;
 
     private DetailViewModel viewModel;
 
@@ -23,16 +33,25 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-        setTitle("Obsah košíku");
 
+        totalCount_textView = findViewById(R.id.basketDetail_TotalCount);
+
+        //nastaveni viewmodelu
         viewModel = new ViewModelProvider(this).get(DetailViewModel.class);
         Intent intent = getIntent();
         if(intent.hasExtra("cart-detail")){
             viewModel.setCart((Cart) intent.getSerializableExtra("cart-detail"));
         }
 
-        totalCount_textView = findViewById(R.id.basketDetail_TotalCount);
-
+        //FAB do přidání nového produktu
+        FloatingActionButton fab = findViewById(R.id.btn_addProduct);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DetailActivity.this, EditProductActivity.class);
+                startActivityForResult(intent, CREATE_PRODUCT_REQUEST);
+            }
+        });
 
         //recycler view se seznamem produktů v košíku
         RecyclerView recyclerView = findViewById(R.id.basketContent);
@@ -41,12 +60,35 @@ public class DetailActivity extends AppCompatActivity {
         ProductAdapter adapter = new ProductAdapter();
         recyclerView.setAdapter(adapter);
 
+        //bindování viewmodelu
         viewModel.getProducts().observe(this, products -> {
             adapter.setProducts(products);
             totalCount_textView.setText(String.valueOf(products.size()));
         });
 
+        //TODO SWIPE POLOŽEK PRO MAZÁNÍ
+        //TODO ONCLICK LISTENER NA PŘECHOD DO EDITACE
+        //TODO ONLONGCLICK LISTENER NA ZOBRAZENÍ OBRÁZKU POKUD EXISTUJE
+
+        setTitle("Obsah košíku");
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == RESULT_OK){
+            switch (requestCode){
+                case CREATE_PRODUCT_REQUEST:
+                    Toast.makeText(this, "Produkt byl vytvořen", Toast.LENGTH_SHORT).show(); break;
+                case EDIT_PRODUCT_REQUEST:
+                    Toast.makeText(this, "Produkt byl upraven", Toast.LENGTH_SHORT).show(); break;
+            }
+        }
+        else{
+            Toast.makeText(this,"Nebyly provedeny žádné změny",Toast.LENGTH_SHORT).show();
+        }
+
+    }
 }
