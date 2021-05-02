@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -15,7 +16,7 @@ import java.util.List;
 @Dao
 public interface CartItemDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insert(CartItem item);
 
     @Update
@@ -25,5 +26,5 @@ public interface CartItemDao {
     void delete(CartItem item);
 
     @Query("SELECT * from cartitem WHERE cartId = :idOfCart")
-    LiveData<List<CartItem>> getAllByCartId(int idOfCart);
+    LiveData<List<CartItem>> getAllByCartId(long idOfCart);
 }

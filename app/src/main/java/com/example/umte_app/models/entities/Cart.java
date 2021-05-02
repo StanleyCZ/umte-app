@@ -11,7 +11,7 @@ import java.util.Date;
 public class Cart implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
-    public int id;
+    public long id;
 
     public String name;
     public String storeName;

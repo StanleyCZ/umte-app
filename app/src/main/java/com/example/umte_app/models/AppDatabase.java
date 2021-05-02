@@ -30,13 +30,13 @@ public abstract class AppDatabase extends RoomDatabase {
         if(instance == null){
             instance = Room.databaseBuilder(ctx.getApplicationContext(),AppDatabase.class, DB_NAME)
                     .fallbackToDestructiveMigration()
-                    .addCallback(roomCallback)
+                    //.addCallback(roomCallback)
                     .build();
         }
         return instance;
     }
 
-    private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback(){
+    /*private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback(){
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
@@ -79,6 +79,6 @@ public abstract class AppDatabase extends RoomDatabase {
             productDao.insert(product3);
             return null;
         }
-    }
+    }*/
 
 }

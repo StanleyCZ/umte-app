@@ -34,6 +34,9 @@ public class DetailViewModel extends AndroidViewModel {
         this.cart = cart;
         products = productRepository.getAllByCartId(cart.id);
     }
+    public Cart getCart(){
+        return cart;
+    }
     public LiveData<List<CartItem>> getProducts(){
         return products;
     }

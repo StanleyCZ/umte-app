@@ -23,9 +23,41 @@ public class ProductRepository {
 
     }
 
-    public LiveData<List<CartItem>> getAllByCartId(int cartId){
+    public LiveData<List<CartItem>> getAllByCartId(long cartId){
         return itemDao.getAllByCartId(cartId);
+    }
+    public long insert(CartItem product){
+        new InsertProductAsyncTask(itemDao).execute(product);
+        return product.id;
+    }
+    public void update(CartItem product){
+        new UpdateProductAsyncTask(itemDao).execute(product);
     }
 
 
+    private static class InsertProductAsyncTask extends AsyncTask<CartItem, Void,Long>{
+        private CartItemDao dao;
+
+        public InsertProductAsyncTask(CartItemDao dao){
+            this.dao = dao;
+        }
+
+        @Override
+        protected Long doInBackground(CartItem... cartItems) {
+            return dao.insert(cartItems[0]);
+        }
+    }
+    private static class UpdateProductAsyncTask extends AsyncTask<CartItem, Void,Void>{
+        private CartItemDao dao;
+
+        public UpdateProductAsyncTask(CartItemDao dao){
+            this.dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(CartItem... cartItems) {
+            dao.update(cartItems[0]);
+            return null;
+        }
+    }
 }

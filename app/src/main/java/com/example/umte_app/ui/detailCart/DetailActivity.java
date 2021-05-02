@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.umte_app.R;
 import com.example.umte_app.models.entities.Cart;
+import com.example.umte_app.models.entities.CartItem;
 import com.example.umte_app.ui.cartList.CartAdapter;
 import com.example.umte_app.ui.cartList.CartListActivity;
 import com.example.umte_app.ui.editCart.EditCartActivity;
@@ -24,6 +25,7 @@ public class DetailActivity extends AppCompatActivity {
 
     private static final int CREATE_PRODUCT_REQUEST = 1;
     private static final int EDIT_PRODUCT_REQUEST = 2;
+    private static final int DELETE_PRODUCT_REQUEST = 3;
 
     private DetailViewModel viewModel;
 
@@ -49,6 +51,7 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DetailActivity.this, EditProductActivity.class);
+                intent.putExtra("cart-id", viewModel.getCart().id);
                 startActivityForResult(intent, CREATE_PRODUCT_REQUEST);
             }
         });
@@ -67,8 +70,19 @@ public class DetailActivity extends AppCompatActivity {
         });
 
         //TODO SWIPE POLOŽEK PRO MAZÁNÍ
-        //TODO ONCLICK LISTENER NA PŘECHOD DO EDITACE
-        //TODO ONLONGCLICK LISTENER NA ZOBRAZENÍ OBRÁZKU POKUD EXISTUJE
+
+        //Nastavení přechodu do editace produktu
+        adapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(CartItem product) {
+                Intent intent = new Intent(DetailActivity.this,EditProductActivity.class);
+                intent.putExtra("product-to-edit",product);
+                intent.putExtra("cart-id", viewModel.getCart().id);
+                startActivityForResult(intent, EDIT_PRODUCT_REQUEST);
+
+            }
+        });
+
 
         setTitle("Obsah košíku");
 

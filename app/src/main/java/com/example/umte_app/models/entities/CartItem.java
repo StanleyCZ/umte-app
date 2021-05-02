@@ -28,5 +28,8 @@ public class CartItem implements Serializable {
         this.name = name;
         this.count = count;
     }
+    public CartItem(){
+
+    }
 
 }

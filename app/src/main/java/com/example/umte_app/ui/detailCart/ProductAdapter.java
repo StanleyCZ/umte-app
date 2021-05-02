@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.umte_app.R;
+import com.example.umte_app.models.entities.Cart;
 import com.example.umte_app.models.entities.CartItem;
 import com.example.umte_app.models.entities.CartWithItems;
 import com.example.umte_app.ui.cartList.CartAdapter;
@@ -20,6 +21,8 @@ import java.util.List;
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductHolder> {
 
     private List<CartItem> items = new ArrayList<>();
+
+    private OnItemClickListener listener;
 
     @NonNull
     @Override
@@ -34,7 +37,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
 
         CartItem currentItem = items.get(position);
         holder.productName_textView.setText(currentItem.name);
-        holder.productPrice_textView.setText(currentItem.price != 0f ? String.valueOf(currentItem.price) : "Cena neuvedena");
+        holder.productPrice_textView.setText(currentItem.price != 0f ? String.valueOf(currentItem.price) + " Kč/ks": "Cena neuvedena");
         holder.productCount_textView.setText(String.valueOf(currentItem.count) + " ks");
         //TODO OBRAZEK
 
@@ -66,7 +69,25 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
             productPrice_textView = itemView.findViewById(R.id.basketDetail_productPrice);
             productCount_textView = itemView.findViewById(R.id.basketDetai_ProductCount);
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if(listener != null && position != RecyclerView.NO_POSITION){
+                        listener.onItemClick(items.get(position));
+                    }
+                }
+            });
         }
+
+    }
+    public interface OnItemClickListener{
+        void onItemClick(CartItem product);
+
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        this.listener = listener;
     }
 
 }
