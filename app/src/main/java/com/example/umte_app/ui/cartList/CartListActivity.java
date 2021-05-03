@@ -26,8 +26,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class CartListActivity extends AppCompatActivity {
 
     private static final int CREATE_CART_REQUEST = 1;
-    private static final int EDIT_CART_REQUEST = 2;
+    public static final int EDIT_CART_REQUEST = 2;
     private static final int DETAIL_CART_REQUEST = 3;
+    public static final int SHOPPING_REQUEST = 4;
     private CartListViewModel cartListViewModel;
 
 
@@ -111,7 +112,6 @@ public class CartListActivity extends AppCompatActivity {
         adapter.setOnItemLongClickListener(new CartAdapter.OnItemLongClickListener() {
             @Override
             public void onItemLongClick(Cart cart) {
-                Toast.makeText(CartListActivity.this,"LONG CLICK",Toast.LENGTH_SHORT).show();
                 openDialog(cart);
             }
         });
@@ -125,10 +125,6 @@ public class CartListActivity extends AppCompatActivity {
     }
 
 
-
-
-
-    //nastane kdyz se vracim z EditCartActivity
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -139,6 +135,8 @@ public class CartListActivity extends AppCompatActivity {
                     Toast.makeText(this,"Košík byl uložen",Toast.LENGTH_SHORT).show(); break;
                 case EDIT_CART_REQUEST:
                     Toast.makeText(this,"Košík byl upraven",Toast.LENGTH_SHORT).show(); break;
+                case SHOPPING_REQUEST:
+                    Toast.makeText(this,"Nákup byl donočen", Toast.LENGTH_SHORT).show();break;
             }
         }
         else{

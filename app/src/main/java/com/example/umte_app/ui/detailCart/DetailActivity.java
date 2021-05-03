@@ -1,8 +1,10 @@
 package com.example.umte_app.ui.detailCart;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,7 +27,6 @@ public class DetailActivity extends AppCompatActivity {
 
     private static final int CREATE_PRODUCT_REQUEST = 1;
     private static final int EDIT_PRODUCT_REQUEST = 2;
-    private static final int DELETE_PRODUCT_REQUEST = 3;
 
     private DetailViewModel viewModel;
 
@@ -69,7 +70,19 @@ public class DetailActivity extends AppCompatActivity {
             totalCount_textView.setText(String.valueOf(products.size()));
         });
 
-        //TODO SWIPE POLOŽEK PRO MAZÁNÍ
+        //pri swipe do stran se smaze produkt v kosiku vcetne fotky
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                viewModel.delete(adapter.getProductAt(viewHolder.getAdapterPosition()));
+                Toast.makeText(DetailActivity.this,"Produkt byl smazán", Toast.LENGTH_SHORT).show();
+            }
+        }).attachToRecyclerView(recyclerView);
 
         //Nastavení přechodu do editace produktu
         adapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
@@ -82,7 +95,6 @@ public class DetailActivity extends AppCompatActivity {
 
             }
         });
-
 
         setTitle("Obsah košíku");
 

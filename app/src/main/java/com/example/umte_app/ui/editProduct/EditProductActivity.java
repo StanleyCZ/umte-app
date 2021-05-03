@@ -3,6 +3,8 @@ package com.example.umte_app.ui.editProduct;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -24,6 +26,7 @@ import android.widget.Toast;
 import com.example.umte_app.R;
 import com.example.umte_app.models.entities.Cart;
 import com.example.umte_app.models.entities.CartItem;
+import com.example.umte_app.ui.cartList.CartListActivity;
 
 import java.io.File;
 
@@ -80,6 +83,7 @@ public class EditProductActivity extends AppCompatActivity implements AdapterVie
             setTitle("Nový produkt");
             product = new CartItem();
             product.cartId = cartId;
+            product.count = 1;
         }
 
 
@@ -120,11 +124,12 @@ public class EditProductActivity extends AppCompatActivity implements AdapterVie
 
             @Override
             public void afterTextChanged(Editable s) {
-                product.count = Integer.parseInt(s.toString());
+                product.count = Integer.parseInt(s.toString().isEmpty() ? "1" : s.toString());
             }
         });
 
         viewModel = new EditProductViewModel(getApplication());
+
 
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_close_24);
     }
@@ -133,7 +138,7 @@ public class EditProductActivity extends AppCompatActivity implements AdapterVie
 
     private void saveProduct(){
 
-        if(product.name.trim().isEmpty()){
+        if(product.name == null || product.name.trim().isEmpty()){
             Toast.makeText(this,"Vyplnte nazev kosiku",Toast.LENGTH_SHORT).show();
             return;
         }
@@ -145,6 +150,7 @@ public class EditProductActivity extends AppCompatActivity implements AdapterVie
         }
         setResult(RESULT_OK);
         finish();
+
 
     }
 
@@ -174,6 +180,7 @@ public class EditProductActivity extends AppCompatActivity implements AdapterVie
 
     }
 
+    //SENSOR 1 - CAMERA
     public void takePicture(View view) {
 
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);

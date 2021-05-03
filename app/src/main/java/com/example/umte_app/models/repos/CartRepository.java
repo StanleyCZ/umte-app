@@ -26,7 +26,7 @@ public class CartRepository {
 
     public LiveData<CartWithItems> getById(int basketId){
         GetCartByIdAsyncTask task = new GetCartByIdAsyncTask(cartDao);
-        task.execute(basketId).execute(basketId);
+        task.execute(basketId);
         return task.getThisFukingCart();
     }
     public long insert(Cart cart){

@@ -27,4 +27,7 @@ public interface CartItemDao {
 
     @Query("SELECT * from cartitem WHERE cartId = :idOfCart")
     LiveData<List<CartItem>> getAllByCartId(long idOfCart);
+
+    @Query("SELECT count() from CartItem WHERE cartId = :idOfCart AND isPurchased=0")
+    LiveData<Integer> getNotInsertedItems(long idOfCart);
 }

@@ -2,12 +2,16 @@ package com.example.umte_app.models.entities;
 
 
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 import java.util.Date;
 
+import static androidx.room.ForeignKey.CASCADE;
+
 @Entity
+@ForeignKey(onDelete = CASCADE, childColumns = "cartId", parentColumns = "id", entity = CartItem.class)
 public class Cart implements Serializable {
 
     @PrimaryKey(autoGenerate = true)

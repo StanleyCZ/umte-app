@@ -16,6 +16,7 @@ import androidx.fragment.app.DialogFragment;
 import com.example.umte_app.R;
 import com.example.umte_app.models.entities.Cart;
 import com.example.umte_app.ui.editCart.EditCartActivity;
+import com.example.umte_app.ui.shopping.ShoppingActivity;
 
 public class CartClikDialog extends DialogFragment {
 
@@ -40,10 +41,12 @@ public class CartClikDialog extends DialogFragment {
                         if(which == 0){
                             Intent intent = new Intent(getContext(), EditCartActivity.class);
                             intent.putExtra("cart-to-edit",cart);
-                            startActivity(intent);
+                            startActivityForResult(intent,CartListActivity.EDIT_CART_REQUEST);
                         }
                         else if(which == 1){
-                            Toast.makeText(getContext(),"TODO NÁKUP",Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getActivity(), ShoppingActivity.class);
+                            intent.putExtra("shopping-cart",cart);
+                            startActivityForResult(intent,CartListActivity.SHOPPING_REQUEST);
                         }
 
                     }

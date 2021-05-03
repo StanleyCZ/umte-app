@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="8dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="10dp"
+    android:id="@+id/shoppingCardView">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="64dp"
+            android:id="@+id/SHOPproductImage"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/ic_baseline_fastfood_24"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/SHOPproductImage"
+            android:orientation="vertical"
+            android:id="@+id/ShopItemProductInfo"
+            android:layout_centerVertical="true"
+            android:paddingStart="14dp">
+
+            <TextView
+                android:id="@+id/ShopItem_productName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Název 1"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                />
+            <TextView
+                android:id="@+id/ShopItem_productPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cena"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/ShopItem_ProductCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5ks"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true" />
+
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>

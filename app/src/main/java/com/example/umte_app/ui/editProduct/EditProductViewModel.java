@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -38,10 +39,29 @@ public class EditProductViewModel extends AndroidViewModel {
         }
         productRepo.insert(item);
     }
-    private void update(CartItem product){
-        productRepo.update(product);
-    }
+
     public void update(CartItem item,Bitmap image){
+
+        if(image != null){ //existuje novy obrazek
+
+            if(item.imagePath == null){ //cesta k obrazku jeste neexistuje - vytvorim novy obrazek
+                Date dtnow = Calendar.getInstance().getTime();
+                String formatedDate = new SimpleDateFormat("ddMMyyhhmmss", Locale.getDefault()).format(dtnow);
+                String imageName = "IMG" + formatedDate +".jpg";
+                String imagePath = saveImageToInternalStorage(image,imageName);
+                item.imagePath = imagePath;
+            }
+            else{ //cesta k obrazku uz existuje, budu prepisovat
+                File originImageFile = new File(item.imagePath);
+                if(originImageFile.exists()){
+                    Bitmap originImage = BitmapFactory.decodeFile(originImageFile.getAbsolutePath());
+                    if(!originImage.sameAs(image)){
+                        saveImageToInternalStorage(image,item.imagePath.split("app_images/")[1]);
+                    }
+                }
+            }
+        }
+        productRepo.update(item);
 
     }
 
@@ -50,6 +70,7 @@ public class EditProductViewModel extends AndroidViewModel {
         ContextWrapper wrapper = new ContextWrapper(getApplication().getApplicationContext());
         File directory = wrapper.getDir("images", Context.MODE_PRIVATE);
         File path = new File(directory,imageName);
+
 
         FileOutputStream fos = null;
         try {

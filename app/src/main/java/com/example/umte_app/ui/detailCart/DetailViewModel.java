@@ -13,6 +13,7 @@ import com.example.umte_app.models.entities.CartWithItems;
 import com.example.umte_app.models.repos.CartRepository;
 import com.example.umte_app.models.repos.ProductRepository;
 
+import java.io.File;
 import java.util.List;
 
 public class DetailViewModel extends AndroidViewModel {
@@ -39,5 +40,15 @@ public class DetailViewModel extends AndroidViewModel {
     }
     public LiveData<List<CartItem>> getProducts(){
         return products;
+    }
+
+    public void delete(CartItem item){
+        if(item.imagePath != null){
+            File imageFile = new File(item.imagePath);
+            if(imageFile.exists()){
+                imageFile.delete();
+            }
+        }
+        productRepository.delete(item);
     }
 }

@@ -33,7 +33,11 @@ public class ProductRepository {
     public void update(CartItem product){
         new UpdateProductAsyncTask(itemDao).execute(product);
     }
+    public void delete(CartItem product){new DeleteProductAsyncTask(itemDao).execute(product);}
 
+    public LiveData<Integer> getRemainingShopItems(long cartId){
+        return itemDao.getNotInsertedItems(cartId);
+    }
 
     private static class InsertProductAsyncTask extends AsyncTask<CartItem, Void,Long>{
         private CartItemDao dao;
@@ -57,6 +61,19 @@ public class ProductRepository {
         @Override
         protected Void doInBackground(CartItem... cartItems) {
             dao.update(cartItems[0]);
+            return null;
+        }
+    }
+    private static class DeleteProductAsyncTask extends AsyncTask<CartItem, Void, Void>{
+
+        private CartItemDao dao;
+
+        public DeleteProductAsyncTask(CartItemDao dao){
+            this.dao = dao;
+        }
+        @Override
+        protected Void doInBackground(CartItem... cartItems) {
+            dao.delete(cartItems[0]);
             return null;
         }
     }
