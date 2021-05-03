@@ -13,6 +13,8 @@ import com.example.umte_app.R;
 import com.example.umte_app.models.entities.Cart;
 import com.example.umte_app.models.entities.CartWithItems;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,10 +36,18 @@ public class  CartAdapter  extends RecyclerView.Adapter<CartAdapter.CartHolder> 
     @Override
     public void onBindViewHolder(@NonNull CartHolder holder, int position) {
             CartWithItems currentCart = carts.get(position);
+
             int productCount = currentCart.items.size();
             holder.tvCartName.setText(currentCart.cart.name);
             holder.tvShopName.setText(currentCart.cart.storeName);
             holder.tvProductCount.setText(String.valueOf(productCount));
+            boolean isUncomplete = currentCart.items.stream().anyMatch(cartItem -> cartItem.isPurchased == true);
+            if(isUncomplete){
+                holder.tvShoppingUncomplete.setText("Nedokončený nákup");
+            }
+            else{
+                holder.tvShoppingUncomplete.setVisibility(View.GONE);
+            }
     }
 
     @Override
@@ -58,12 +68,14 @@ public class  CartAdapter  extends RecyclerView.Adapter<CartAdapter.CartHolder> 
         private TextView tvCartName;
         private TextView tvShopName;
         private TextView tvProductCount;
+        private TextView tvShoppingUncomplete;
 
         public CartHolder(@NonNull View itemView) {
             super(itemView);
             tvCartName = itemView.findViewById(R.id.basketItem_name);
             tvShopName = itemView.findViewById(R.id.basketItem_shopName);
             tvProductCount = itemView.findViewById(R.id.basketItem_productCount);
+            tvShoppingUncomplete = itemView.findViewById(R.id.basketItem_shoppingUncomplete);
 
             //pro nastaveni udalosti, kdyz uzivatel klikne na kosik
             itemView.setOnClickListener(new View.OnClickListener() {

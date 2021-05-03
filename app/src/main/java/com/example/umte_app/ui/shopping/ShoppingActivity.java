@@ -19,6 +19,8 @@ import com.example.umte_app.models.entities.CartItem;
 import com.example.umte_app.ui.cartList.CartListActivity;
 import com.example.umte_app.ui.detailCart.ProductAdapter;
 
+import java.util.Calendar;
+
 public class ShoppingActivity extends AppCompatActivity {
 
     private ShoppingViewModel viewModel;
@@ -80,6 +82,7 @@ public class ShoppingActivity extends AppCompatActivity {
     }
     public void finishShopping(){
         cart.isFinished = true;
+        cart.shopDate = Calendar.getInstance().getTime();
         viewModel.updateCart(cart);
         setResult(RESULT_OK);
         finish();

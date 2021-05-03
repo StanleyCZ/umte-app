@@ -10,13 +10,13 @@ import java.io.Serializable;
 
 import static androidx.room.ForeignKey.CASCADE;
 
-@Entity
+@Entity(
+        foreignKeys = {@ForeignKey(onDelete = CASCADE,entity = Cart.class,parentColumns = "id",childColumns = "cartId")})
 public class CartItem implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     public long id;
 
-    @ForeignKey(entity = Cart.class, parentColumns = "id", childColumns = "cartId", onDelete = CASCADE)
     public long cartId;
     public String name;
     public int count;

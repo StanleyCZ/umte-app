@@ -11,7 +11,6 @@ import java.util.Date;
 import static androidx.room.ForeignKey.CASCADE;
 
 @Entity
-@ForeignKey(onDelete = CASCADE, childColumns = "cartId", parentColumns = "id", entity = CartItem.class)
 public class Cart implements Serializable {
 
     @PrimaryKey(autoGenerate = true)

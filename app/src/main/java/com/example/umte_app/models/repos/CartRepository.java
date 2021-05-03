@@ -2,6 +2,9 @@ package com.example.umte_app.models.repos;
 
 import android.app.Application;
 import android.os.AsyncTask;
+import android.renderscript.RenderScript;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
 
@@ -16,12 +19,18 @@ public class CartRepository {
 
     private CartDao cartDao;
     private LiveData<List<CartWithItems>> editableCarts;
+    private LiveData<List<CartWithItems>> historyCarts;
     private LiveData<CartWithItems> cart;
 
     public CartRepository(Application application){
         AppDatabase db = AppDatabase.getInstance(application);
         cartDao = db.cartDao();
         editableCarts = cartDao.getAllReadyToShop();
+        historyCarts = cartDao.getAllFinished();
+    }
+
+    public LiveData<List<CartWithItems>> getHistoryCarts(){
+        return historyCarts;
     }
 
     public LiveData<CartWithItems> getById(int basketId){
@@ -38,7 +47,9 @@ public class CartRepository {
     public LiveData<List<CartWithItems>> getAllEditableCarts(){
         return editableCarts;
     }
-    public void deleteCartsHistory(){new DeleteCartAsyncTask(cartDao).execute();}
+    public void deleteCartsHistory(){
+        new DeleteCartsHistoryAsyncTask(cartDao).execute();
+    }
 
     private static class InsertCartAsyncTask extends AsyncTask<Cart,Void, Long>{
         private CartDao cartDao;
@@ -78,6 +89,12 @@ public class CartRepository {
         protected Void doInBackground(Void... voids) {
             cartDao.deleteCartsInHistory();
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            String wtf = "wtf";
+            Log.println(Log.INFO,"blabla",wtf);
         }
     }
 

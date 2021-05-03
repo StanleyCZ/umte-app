@@ -39,7 +39,7 @@ public class ShopItemAdapter extends RecyclerView.Adapter<ShopItemAdapter.ShopIt
         holder.tvName.setText(shopItem.name);
         holder.tvCount.setText(String.valueOf(shopItem.count) + " ks");
         holder.tvPrice.setText(shopItem.price != 0f ? String.valueOf(shopItem.price) + " Kč/ks": "Cena neuvedena");
-        holder.cardView.setCardBackgroundColor(shopItem.isPurchased ? Color.parseColor("#00ff00") : Color.parseColor("#ff0000"));
+        holder.cardView.setCardBackgroundColor(shopItem.isPurchased ? Color.parseColor("#60e698") : Color.parseColor("#e67060"));
 
     }
 

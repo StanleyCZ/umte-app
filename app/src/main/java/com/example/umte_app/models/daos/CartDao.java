@@ -29,12 +29,13 @@ public interface CartDao {
     @Query("SELECT * FROM cart WHERE isFinished = 0")
     LiveData<List<CartWithItems>> getAllReadyToShop();
 
-    @Query("SELECT * FROM cart WHERE isFinished = 1")
+    @Query("SELECT * FROM cart WHERE isFinished = 1 order by shopDate")
     LiveData<List<CartWithItems>> getAllFinished();
 
-    @Query("DELETE FROM cart WHERE isFinished = 1")
+    @Query("DELETE  FROM cart WHERE isFinished = 1")
     void deleteCartsInHistory();
 
     @Query("SELECT * FROM cart WHERE id = :basketId")
     LiveData<CartWithItems> getById(int basketId);
+
 }

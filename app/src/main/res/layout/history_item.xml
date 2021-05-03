@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="8dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="10dp"
+    android:id="@+id/shoppingCardView">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="64dp"
+            android:id="@+id/HISTproductImage"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/ic_baseline_history_24"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/HISTproductImage"
+            android:orientation="vertical"
+            android:id="@+id/HistItemInfo"
+            android:layout_centerVertical="true"
+            android:paddingStart="14dp">
+
+            <TextView
+                android:id="@+id/HISTcartName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Název 1"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                />
+            <TextView
+                android:id="@+id/HISTshopName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Obchod"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Celková cena:" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="145 Kč"
+                    android:id="@+id/HISTtotalPrice"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentEnd="true"
+            android:layout_marginVertical="@dimen/activity_horizontal_margin">
+
+            <TextView
+                android:id="@+id/HISTtotalCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="30"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="položek" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>
