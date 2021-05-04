@@ -4,6 +4,7 @@
     <string name="title_shop">Nakupovat</string>
     <string name="title_history">Historie nákupů</string>
     <string name="title_map">Mapa obchodů</string>
+    <string name="google_map_key">AIzaSyC2gPklVZWplNGI3M3stTwgAXKc2IKebQ4</string>
 
     <string-array name="list_of_shops">
         <item>Albert</item>
